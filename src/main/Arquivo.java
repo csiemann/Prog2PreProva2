@@ -40,7 +40,7 @@ public class Arquivo {
 		Path arq;
 
 		/* VERIFICA SE EXISTE O DIRETÓRIO */
-		if (diretorio != null)
+		if (diretorio != null && Files.exists(fs.getPath(diretorio)))
 			arq = fs.getPath(diretorio + fileSeparator + nome + ".cli");
 		else
 			arq = fs.getPath(nome + ".cli");
