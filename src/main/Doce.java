@@ -1,10 +1,16 @@
 package main;
-public class Doce {
+
+import java.io.Serializable;
+
+public class Doce implements Serializable{
+	private static final long serialVersionUID = 1L;
+
+	private static final String lineSeparator = System.getProperty("line.separator");
 
 	public int codigo;
 	public String nome;
 	public float preco;
-	
+
 	public Doce(int codigo, String nome, float preco) throws Exception {
 		this.setCodigo(codigo);
 		this.setNome(nome);
@@ -42,5 +48,16 @@ public class Doce {
 			throw new Exception("Preço inválido");
 		}
 		this.preco = preco;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+
+		builder.append("cod=" + codigo + lineSeparator);
+		builder.append("nom=" + nome + lineSeparator);
+		builder.append("prc=" + preco);
+
+		return builder.toString();
 	}
 }
