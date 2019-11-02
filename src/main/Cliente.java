@@ -31,8 +31,10 @@ public class Cliente {
 	}
 	
 	public float totalCompra() {
-		
-		return 0;
+		float result = 0;
+		for (int i = 0; i < docesComprados.size(); i++) {
+			result += docesComprados.get(i).getPreco();
+		}
+		return result;
 	}
-		
 }
