@@ -34,18 +34,18 @@ public class Arquivo {
 		}
 	}
 
-	/* M…TODO QUE GRAVA O TXT */
+	/* M√âTODO QUE GRAVA O TXT */
 	private void salvarTXT(String diretorio, String nome, Cliente cliente) throws IOException {
 		FileSystem fs = FileSystems.getDefault();
 		Path arq;
 
-		/* VERIFICA SE EXISTE O DIRET”RIO */
+		/* VERIFICA SE EXISTE O DIRET√ìRIO */
 		if (diretorio != null && Files.exists(fs.getPath(diretorio)))
 			arq = fs.getPath(diretorio + fileSeparator + nome + ".cli");
 		else
 			arq = fs.getPath(nome + ".cli");
 
-		/* SE N√O EXISTIR O ARQUIVO INFORMADO, CRIAMOS ELE */
+		/* SE N√ÉO EXISTIR O ARQUIVO INFORMADO, CRIAMOS ELE */
 		if (!Files.exists(arq))
 			Files.createFile(arq);
 
@@ -58,11 +58,11 @@ public class Arquivo {
 		writer.close();
 	}
 
-	/* M…TODO QUE GRAVA O ARQUIVO SERIALIZADO */
+	/* M√âTODO QUE GRAVA O ARQUIVO SERIALIZADO */
 	private void salvarObj(Cliente cliente) throws IOException {
 		Path arq = Paths.get(cliente.getNome() + ".ser");
 
-		/* SE N√O EXISTIR O ARQUIVO INFORMADO, CRIAMOS ELE */
+		/* SE N√ÉO EXISTIR O ARQUIVO INFORMADO, CRIAMOS ELE */
 		if (!Files.exists(arq))
 			Files.createFile(arq);
 
@@ -84,24 +84,24 @@ public class Arquivo {
 			FileReader reader = new FileReader(diretorio + fileSeparator + nome);
 			BufferedReader br = new BufferedReader(reader);
 			String line;
-			/* VERIFICA SE … UM ARQUIVO SEM TEXTO */
+			/* VERIFICA SE √â UM ARQUIVO SEM TEXTO */
 			if ((line = br.readLine()) != null)
-				/* VERIFICA SE A LINHA … O NOME DO CLIENTE */
+				/* VERIFICA SE A LINHA √â O NOME DO CLIENTE */
 				if (line.contains("cli=")) {
 					cliente.setNome(line.substring(4));
-					/* ENQUANTO EXISTE A PR”XIMA LINHA */
+					/* ENQUANTO EXISTE A PR√ìXIMA LINHA */
 					while ((line = br.readLine()) != null) {
-						/* VERIFICA SE A LINHA … O C”DIGO DE UM DOCE */
+						/* VERIFICA SE A LINHA √â O C√ìDIGO DE UM DOCE */
 						if (line.contains("cod=")) {
 							int codigo = Integer.parseInt(line.substring(4));
-							/* VERIFICA SE EXISTE A PR”XIMA LINHA */
+							/* VERIFICA SE EXISTE A PR√ìXIMA LINHA */
 							if ((line = br.readLine()) != null)
-								/* VERIFICA SE A LINHA … O NOME DE UM DOCE */
+								/* VERIFICA SE A LINHA √â O NOME DE UM DOCE */
 								if (line.contains("nom=")) {
 									String nomeDoce = line.substring(4);
-									/* VERIFICA SE EXISTE A PR”XIMA LINHA */
+									/* VERIFICA SE EXISTE A PR√ìXIMA LINHA */
 									if ((line = br.readLine()) != null)
-										/* VERIFICA SE A LINHA … O PRE«O DE UM DOCE */
+										/* VERIFICA SE A LINHA √â O PRE√áO DE UM DOCE */
 										if (line.contains("prc=")) {
 											float preco = Float.parseFloat(line.substring(4));
 											/* ADICIONA O DOCE AO CLIENTE */
@@ -137,25 +137,25 @@ public class Arquivo {
 			FileReader reader = new FileReader(diretorio + fileSeparator + nome);
 			BufferedReader br = new BufferedReader(reader);
 			String line;
-			/* ENQUANTO H¡ LINHA N√O NULA */
+			/* ENQUANTO H√Å LINHA N√ÉO NULA */
 			while ((line = br.readLine()) != null) {
 				Cliente cliente = new Cliente("teste");
-				/* VERIFICA SE A LINHA … O NOME DO CLIENTE */
+				/* VERIFICA SE A LINHA √â O NOME DO CLIENTE */
 				if (line.contains("cli=")) {
 					cliente.setNome(line.substring(4));
-					/* ENQUANTO EXISTE A PR”XIMA LINHA */
+					/* ENQUANTO EXISTE A PR√ìXIMA LINHA */
 					while ((line = br.readLine()) != null) {
-						/* VERIFICA SE A LINHA … O C”DIGO DE UM DOCE */
+						/* VERIFICA SE A LINHA √â O C√ìDIGO DE UM DOCE */
 						if (line.contains("cod=")) {
 							int codigo = Integer.parseInt(line.substring(4));
-							/* VERIFICA SE EXISTE A PR”XIMA LINHA */
+							/* VERIFICA SE EXISTE A PR√ìXIMA LINHA */
 							if ((line = br.readLine()) != null)
-								/* VERIFICA SE A LINHA … O NOME DE UM DOCE */
+								/* VERIFICA SE A LINHA √â O NOME DE UM DOCE */
 								if (line.contains("nom=")) {
 									String nomeDoce = line.substring(4);
-									/* VERIFICA SE EXISTE A PR”XIMA LINHA */
+									/* VERIFICA SE EXISTE A PR√ìXIMA LINHA */
 									if ((line = br.readLine()) != null)
-										/* VERIFICA SE A LINHA … O PRE«O DE UM DOCE */
+										/* VERIFICA SE A LINHA √â O PRE√áO DE UM DOCE */
 										if (line.contains("prc=")) {
 											float preco = Float.parseFloat(line.substring(4));
 											/* ADICIONA O DOCE AO CLIENTE */
@@ -194,6 +194,7 @@ public class Arquivo {
 			Stream<Path> files = Files.list(fs.getPath(diretorio));
 			StringBuilder builder = new StringBuilder();
 			files.forEach(file -> builder.append(file.getFileName()+lineSeparator));
+			files.close();
 			return builder.toString();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -203,6 +204,8 @@ public class Arquivo {
 
 	public static void main(String[] args) {
 		try {
+			Path currentRelativePath = Paths.get("");
+			String s = currentRelativePath.toAbsolutePath().toString()+"//arquivos-teste";
 			Cliente cliente = new Cliente("Caetano");
 			cliente.addDoce(new Doce(1, "doce1", 1.24f));
 			cliente.addDoce(new Doce(2, "doce2", 4f));
@@ -210,14 +213,13 @@ public class Arquivo {
 			cliente.addDoce(new Doce(4, "doce4", 2.23f));
 			Arquivo a = new Arquivo();
 			a.salvar(null, "cli", cliente);
-			Cliente cli = a.ler("C:\\Users\\Caetano\\git\\Prog2PreProva2", "cli.cli");
+			Cliente cli = a.ler(s, "cli.cli");
 			System.out.println(cli);
-			ArrayList<Cliente> clis = a.lerLista("C:\\Users\\Caetano\\git\\Prog2PreProva2", "cli.cli");
+			ArrayList<Cliente> clis = a.lerLista(s, "cli.cli");
 			System.out.println(clis.size());
-			String dir = a.listarArquivos("C:\\Users\\Caetano\\git\\Prog2PreProva2");
+			String dir = a.listarArquivos(s);
 			System.out.println(dir);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
