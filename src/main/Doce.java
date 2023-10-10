@@ -23,7 +23,7 @@ public class Doce implements Serializable{
 
 	public void setCodigo(int codigo) throws Exception {
 		if (codigo <= 0) {
-			throw new Exception("Código inválido");
+			throw new Exception("CÃ³digo invÃ¡lido");
 		}
 		this.codigo = codigo;
 	}
@@ -34,7 +34,7 @@ public class Doce implements Serializable{
 
 	public void setNome(String nome) throws Exception {
 		if (nome.isEmpty()) {
-			throw new Exception("Nome inválido");
+			throw new Exception("Nome invÃ¡lido");
 		}
 		this.nome = nome;
 	}
@@ -45,7 +45,7 @@ public class Doce implements Serializable{
 
 	public void setPreco(float preco) throws Exception {
 		if (preco < 0) {
-			throw new Exception("Preço inválido");
+			throw new Exception("PreÃ§o invÃ¡lido");
 		}
 		this.preco = preco;
 	}

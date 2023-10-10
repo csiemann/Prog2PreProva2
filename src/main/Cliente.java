@@ -21,7 +21,7 @@ public class Cliente implements Serializable{
 
 	public void setNome(String nome) throws Exception {
 		if (nome.isEmpty()) {
-			throw new Exception("Nome inv·lido");
+			throw new Exception("Nome inv√°lido");
 		}
 		this.nome = nome;
 	}
